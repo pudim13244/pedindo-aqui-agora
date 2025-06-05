@@ -1,29 +1,32 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, MapPin, Clock, Star, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Search as SearchIcon, Filter, Star, Clock } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Header from '@/components/Header';
 
-const Index = () => {
-  const [location, setLocation] = useState('R. das Flores, 123 - Centro');
+const Search = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const categories = [
-    { id: 1, name: 'Pizza', icon: '🍕', color: 'bg-orange-100' },
-    { id: 2, name: 'Hambúrguer', icon: '🍔', color: 'bg-yellow-100' },
-    { id: 3, name: 'Japonesa', icon: '🍣', color: 'bg-green-100' },
-    { id: 4, name: 'Brasileira', icon: '🍖', color: 'bg-red-100' },
-    { id: 5, name: 'Italiana', icon: '🍝', color: 'bg-purple-100' },
-    { id: 6, name: 'Doces', icon: '🍰', color: 'bg-pink-100' },
+    { id: 'all', name: 'Todos' },
+    { id: 'pizza', name: 'Pizza' },
+    { id: 'hamburger', name: 'Hambúrguer' },
+    { id: 'japanese', name: 'Japonesa' },
+    { id: 'brazilian', name: 'Brasileira' },
+    { id: 'italian', name: 'Italiana' },
+    { id: 'dessert', name: 'Doces' },
   ];
 
-  const restaurants = [
+  const allRestaurants = [
     {
       id: 1,
       name: 'Pizzaria Bella Napoli',
-      category: 'Pizza',
+      category: 'pizza',
+      categoryName: 'Pizza',
       rating: 4.8,
       deliveryTime: '25-35 min',
       deliveryFee: 'R$ 4,99',
@@ -35,7 +38,8 @@ const Index = () => {
     {
       id: 2,
       name: 'Burger House',
-      category: 'Hambúrguer',
+      category: 'hamburger',
+      categoryName: 'Hambúrguer',
       rating: 4.6,
       deliveryTime: '30-40 min',
       deliveryFee: 'R$ 3,99',
@@ -46,7 +50,8 @@ const Index = () => {
     {
       id: 3,
       name: 'Sushi Zen',
-      category: 'Japonesa',
+      category: 'japanese',
+      categoryName: 'Japonesa',
       rating: 4.9,
       deliveryTime: '40-50 min',
       deliveryFee: 'R$ 5,99',
@@ -55,97 +60,86 @@ const Index = () => {
       promoted: true,
       discount: 'Frete Grátis'
     },
+    {
+      id: 4,
+      name: 'Churrascaria do Gaúcho',
+      category: 'brazilian',
+      categoryName: 'Brasileira',
+      rating: 4.7,
+      deliveryTime: '35-45 min',
+      deliveryFee: 'R$ 6,99',
+      distance: '1.8 km',
+      image: '/placeholder.svg',
+      promoted: false
+    },
+    {
+      id: 5,
+      name: 'Pasta & Vino',
+      category: 'italian',
+      categoryName: 'Italiana',
+      rating: 4.5,
+      deliveryTime: '20-30 min',
+      deliveryFee: 'R$ 4,99',
+      distance: '0.9 km',
+      image: '/placeholder.svg',
+      promoted: false
+    },
   ];
 
-  const promos = [
-    {
-      id: 1,
-      title: 'Frete Grátis',
-      subtitle: 'Em pedidos acima de R$ 30',
-      image: '/placeholder.svg',
-      color: 'bg-gradient-to-r from-primary-500 to-primary-600'
-    },
-    {
-      id: 2,
-      title: '20% OFF',
-      subtitle: 'Na primeira compra',
-      image: '/placeholder.svg',
-      color: 'bg-gradient-to-r from-green-500 to-green-600'
-    },
-  ];
+  const filteredRestaurants = allRestaurants.filter(restaurant => {
+    const matchesSearch = restaurant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         restaurant.categoryName.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || restaurant.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
+      <Header title="Buscar" showBack />
       
-      {/* Location Banner */}
-      <div className="bg-white border-b border-gray-200 px-4 py-3">
-        <div className="flex items-center gap-2 max-w-md mx-auto">
-          <MapPin className="w-5 h-5 text-primary-500" />
-          <div className="flex-1">
-            <p className="text-sm text-gray-600">Entregar em</p>
-            <p className="font-medium text-gray-900">{location}</p>
-          </div>
-          <Button variant="ghost" size="sm">
-            Alterar
-          </Button>
-        </div>
-      </div>
-
       <div className="max-w-md mx-auto px-4 pb-20">
         {/* Search Bar */}
         <div className="py-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <Input
               placeholder="Buscar por restaurante ou comida"
               className="pl-10 pr-4 py-3 rounded-full border-gray-300"
-              onClick={() => window.location.href = '/search'}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         </div>
 
-        {/* Promos */}
-        <div className="mb-6">
-          <div className="flex gap-3 overflow-x-auto pb-3">
-            {promos.map((promo) => (
-              <Card key={promo.id} className="flex-shrink-0 w-64 overflow-hidden">
-                <div className={`${promo.color} text-white p-4 h-24 flex items-center justify-between`}>
-                  <div>
-                    <h3 className="font-bold text-lg">{promo.title}</h3>
-                    <p className="text-sm opacity-90">{promo.subtitle}</p>
-                  </div>
-                  <ChevronRight className="w-6 h-6" />
-                </div>
-              </Card>
-            ))}
+        {/* Categories Filter */}
+        <div className="mb-4">
+          <div className="flex items-center gap-2 mb-3">
+            <Filter className="w-5 h-5 text-gray-600" />
+            <span className="font-medium text-gray-900">Categorias</span>
           </div>
-        </div>
-
-        {/* Categories */}
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-3">Categorias</h2>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="flex gap-2 overflow-x-auto pb-2">
             {categories.map((category) => (
-              <Link
+              <Button
                 key={category.id}
-                to="/search"
-                className="flex flex-col items-center p-3 bg-white rounded-lg border border-gray-200 hover:border-primary-300 transition-colors"
+                variant={selectedCategory === category.id ? "default" : "outline"}
+                size="sm"
+                className="flex-shrink-0 rounded-full"
+                onClick={() => setSelectedCategory(category.id)}
               >
-                <div className={`${category.color} w-12 h-12 rounded-full flex items-center justify-center text-2xl mb-2`}>
-                  {category.icon}
-                </div>
-                <span className="text-sm font-medium text-gray-700">{category.name}</span>
-              </Link>
+                {category.name}
+              </Button>
             ))}
           </div>
         </div>
 
-        {/* Restaurants */}
+        {/* Results */}
         <div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-3">Restaurantes próximos</h2>
+          <p className="text-sm text-gray-600 mb-3">
+            {filteredRestaurants.length} restaurantes encontrados
+          </p>
+          
           <div className="space-y-3">
-            {restaurants.map((restaurant) => (
+            {filteredRestaurants.map((restaurant) => (
               <Link
                 key={restaurant.id}
                 to={`/restaurant/${restaurant.id}`}
@@ -166,7 +160,7 @@ const Index = () => {
                   </div>
                   <CardContent className="p-3">
                     <h3 className="font-semibold text-gray-900">{restaurant.name}</h3>
-                    <p className="text-sm text-gray-600 mb-2">{restaurant.category}</p>
+                    <p className="text-sm text-gray-600 mb-2">{restaurant.categoryName}</p>
                     <div className="flex items-center justify-between text-xs text-gray-600">
                       <div className="flex items-center gap-1">
                         <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
@@ -190,4 +184,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Search;
