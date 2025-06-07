@@ -26,22 +26,46 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: '#EA1D2C',
+					DEFAULT: '#D63384',
 					foreground: '#FFFFFF',
-					50: '#FEF2F2',
-					100: '#FEE2E2',
-					200: '#FECACA',
-					300: '#FCA5A5',
-					400: '#F87171',
-					500: '#EA1D2C',
-					600: '#DC2626',
-					700: '#B91C1C',
-					800: '#991B1B',
-					900: '#7F1D1D'
+					50: '#FDF2F8',
+					100: '#FCE7F3',
+					200: '#FBCFE8',
+					300: '#F9A8D4',
+					400: '#F472B6',
+					500: '#D63384',
+					600: '#BE185D',
+					700: '#9D174D',
+					800: '#831843',
+					900: '#701A75'
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					DEFAULT: '#F97316',
+					foreground: '#FFFFFF',
+					50: '#FFF7ED',
+					100: '#FFEDD5',
+					200: '#FED7AA',
+					300: '#FDBA74',
+					400: '#FB923C',
+					500: '#F97316',
+					600: '#EA580C',
+					700: '#C2410C',
+					800: '#9A3412',
+					900: '#7C2D12'
+				},
+				accent: {
+					DEFAULT: '#FCD34D',
+					foreground: '#92400E',
+					50: '#FFFBEB',
+					100: '#FEF3C7',
+					200: '#FDE68A',
+					300: '#FCD34D',
+					400: '#FBBF24',
+					500: '#F59E0B',
+					600: '#D97706',
+					700: '#B45309',
+					800: '#92400E',
+					900: '#78350F'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -50,10 +74,6 @@ export default {
 				muted: {
 					DEFAULT: 'hsl(var(--muted))',
 					foreground: 'hsl(var(--muted-foreground))'
-				},
-				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
 				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
@@ -80,8 +100,9 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			backgroundImage: {
-				'gradient-primary': 'linear-gradient(135deg, #EA1D2C 0%, #FF6B6B 100%)',
-				'gradient-secondary': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+				'gradient-primary': 'linear-gradient(135deg, #D63384 0%, #F97316 100%)',
+				'gradient-secondary': 'linear-gradient(135deg, #F97316 0%, #FCD34D 100%)',
+				'gradient-vibrant': 'linear-gradient(45deg, #D63384 0%, #F97316 50%, #FCD34D 100%)',
 			},
 			keyframes: {
 				'accordion-down': {

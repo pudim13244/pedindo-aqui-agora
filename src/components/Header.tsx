@@ -16,14 +16,14 @@ const Header = ({ title, showBack = false, showCart = true }: HeaderProps) => {
   const { totalItems } = useCart();
 
   return (
-    <header className="bg-primary-500 text-white px-4 py-3 flex items-center justify-between">
+    <header className="bg-gradient-primary text-white px-4 py-3 flex items-center justify-between">
       <div className="flex items-center gap-3">
         {showBack && (
           <Button
             variant="ghost"
             size="sm"
             onClick={() => navigate(-1)}
-            className="text-white hover:bg-primary-600 p-2"
+            className="text-white hover:bg-white/20 p-2"
           >
             <ArrowLeft className="w-5 h-5" />
           </Button>
@@ -38,11 +38,11 @@ const Header = ({ title, showBack = false, showCart = true }: HeaderProps) => {
           <Button
             variant="ghost"
             size="sm"
-            className="text-white hover:bg-primary-600 p-2"
+            className="text-white hover:bg-white/20 p-2"
           >
             <ShoppingCart className="w-5 h-5" />
             {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 bg-white text-primary-500 text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+              <span className="absolute -top-1 -right-1 bg-accent-300 text-accent-800 text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                 {totalItems}
               </span>
             )}

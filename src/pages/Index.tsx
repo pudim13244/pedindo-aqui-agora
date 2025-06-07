@@ -76,7 +76,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50">
       <Header />
       
       {/* Location Banner */}
@@ -91,6 +91,7 @@ const Index = () => {
             variant="ghost" 
             size="sm"
             onClick={() => setIsModalOpen(true)}
+            className="text-primary-500 hover:bg-primary-50"
           >
             Alterar
           </Button>
@@ -104,7 +105,7 @@ const Index = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <Input
               placeholder="Buscar por restaurante ou comida"
-              className="pl-10 pr-4 py-3 rounded-full border-gray-300"
+              className="pl-10 pr-4 py-3 rounded-full border-gray-300 focus:border-primary-300 focus:ring-primary-200"
               onClick={() => window.location.href = '/search'}
             />
           </div>
@@ -114,8 +115,8 @@ const Index = () => {
         <div className="mb-6">
           <div className="flex gap-3 overflow-x-auto pb-3">
             {promos.map((promo) => (
-              <Card key={promo.id} className="flex-shrink-0 w-64 overflow-hidden">
-                <div className={`${promo.color} text-white p-4 h-24 flex items-center justify-between`}>
+              <Card key={promo.id} className="flex-shrink-0 w-64 overflow-hidden border-0 shadow-lg">
+                <div className={`${promo.color === 'bg-gradient-to-r from-primary-500 to-primary-600' ? 'bg-gradient-primary' : 'bg-gradient-secondary'} text-white p-4 h-24 flex items-center justify-between`}>
                   <div>
                     <h3 className="font-bold text-lg">{promo.title}</h3>
                     <p className="text-sm opacity-90">{promo.subtitle}</p>
@@ -135,9 +136,9 @@ const Index = () => {
               <Link
                 key={category.id}
                 to="/search"
-                className="flex flex-col items-center p-3 bg-white rounded-lg border border-gray-200 hover:border-primary-300 transition-colors"
+                className="flex flex-col items-center p-3 bg-white rounded-lg border border-gray-200 hover:border-primary-300 hover:shadow-md transition-all"
               >
-                <div className={`${category.color} w-12 h-12 rounded-full flex items-center justify-center text-2xl mb-2`}>
+                <div className={`${category.color} w-12 h-12 rounded-full flex items-center justify-center text-2xl mb-2 shadow-sm`}>
                   {category.icon}
                 </div>
                 <span className="text-sm font-medium text-gray-700">{category.name}</span>
@@ -156,7 +157,7 @@ const Index = () => {
                 to={`/restaurant/${restaurant.id}`}
                 className="block"
               >
-                <Card className="overflow-hidden hover:shadow-md transition-shadow">
+                <Card className="overflow-hidden hover:shadow-lg transition-shadow border-0 shadow-md">
                   <div className="relative">
                     <img
                       src={restaurant.image}
@@ -164,7 +165,7 @@ const Index = () => {
                       className="w-full h-32 object-cover"
                     />
                     {restaurant.promoted && (
-                      <div className="absolute top-2 left-2 bg-primary-500 text-white px-2 py-1 rounded text-xs font-medium">
+                      <div className="absolute top-2 left-2 bg-gradient-primary text-white px-2 py-1 rounded text-xs font-medium shadow-sm">
                         {restaurant.discount}
                       </div>
                     )}
@@ -174,7 +175,7 @@ const Index = () => {
                     <p className="text-sm text-gray-600 mb-2">{restaurant.category}</p>
                     <div className="flex items-center justify-between text-xs text-gray-600">
                       <div className="flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                        <Star className="w-3 h-3 fill-accent-400 text-accent-400" />
                         <span>{restaurant.rating}</span>
                       </div>
                       <div className="flex items-center gap-1">
@@ -209,19 +210,20 @@ const Index = () => {
               placeholder="Digite seu endereço"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="w-full"
+              className="w-full focus:border-primary-300 focus:ring-primary-200"
             />
           </div>
           <div className="flex gap-3 justify-end">
             <Button 
               variant="outline" 
               onClick={() => setIsModalOpen(false)}
+              className="border-gray-300 text-gray-700 hover:bg-gray-50"
             >
               Cancelar
             </Button>
             <Button 
               onClick={() => setIsModalOpen(false)}
-              className="bg-primary-500 hover:bg-primary-600"
+              className="bg-gradient-primary hover:opacity-90 text-white border-0"
             >
               Confirmar
             </Button>
