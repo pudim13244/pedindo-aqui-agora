@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, MapPin, Clock, Star, ChevronRight } from 'lucide-react';
@@ -6,9 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import Header from '@/components/Header';
+import Modal from '@/components/Modal';
 
 const Index = () => {
   const [location, setLocation] = useState('R. das Flores, 123 - Centro');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const categories = [
     { id: 1, name: 'Pizza', icon: '🍕', color: 'bg-orange-100' },
@@ -86,7 +87,11 @@ const Index = () => {
             <p className="text-sm text-gray-600">Entregar em</p>
             <p className="font-medium text-gray-900">{location}</p>
           </div>
-          <Button variant="ghost" size="sm">
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => setIsModalOpen(true)}
+          >
             Alterar
           </Button>
         </div>
@@ -186,6 +191,43 @@ const Index = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal para alterar endereço */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Alterar Endereço"
+        maxWidth="max-w-lg"
+      >
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Novo Endereço
+            </label>
+            <Input
+              type="text"
+              placeholder="Digite seu endereço"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <div className="flex gap-3 justify-end">
+            <Button 
+              variant="outline" 
+              onClick={() => setIsModalOpen(false)}
+            >
+              Cancelar
+            </Button>
+            <Button 
+              onClick={() => setIsModalOpen(false)}
+              className="bg-primary-500 hover:bg-primary-600"
+            >
+              Confirmar
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
