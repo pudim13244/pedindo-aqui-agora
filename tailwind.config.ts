@@ -99,11 +99,6 @@ export default {
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
 			},
-			backgroundImage: {
-				'gradient-primary': 'linear-gradient(135deg, #D63384 0%, #F97316 100%)',
-				'gradient-secondary': 'linear-gradient(135deg, #F97316 0%, #FCD34D 100%)',
-				'gradient-vibrant': 'linear-gradient(45deg, #D63384 0%, #F97316 50%, #FCD34D 100%)',
-			},
 			keyframes: {
 				'accordion-down': {
 					from: { height: '0' },

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, MapPin, Clock, Star, ChevronRight } from 'lucide-react';
@@ -64,19 +65,19 @@ const Index = () => {
       title: 'Frete Grátis',
       subtitle: 'Em pedidos acima de R$ 30',
       image: '/placeholder.svg',
-      color: 'bg-gradient-to-r from-primary-500 to-primary-600'
+      color: 'bg-primary'
     },
     {
       id: 2,
       title: '20% OFF',
       subtitle: 'Na primeira compra',
       image: '/placeholder.svg',
-      color: 'bg-gradient-to-r from-green-500 to-green-600'
+      color: 'bg-secondary'
     },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50">
+    <div className="min-h-screen bg-primary-50">
       <Header />
       
       {/* Location Banner */}
@@ -116,7 +117,7 @@ const Index = () => {
           <div className="flex gap-3 overflow-x-auto pb-3">
             {promos.map((promo) => (
               <Card key={promo.id} className="flex-shrink-0 w-64 overflow-hidden border-0 shadow-lg">
-                <div className={`${promo.color === 'bg-gradient-to-r from-primary-500 to-primary-600' ? 'bg-gradient-primary' : 'bg-gradient-secondary'} text-white p-4 h-24 flex items-center justify-between`}>
+                <div className={`${promo.color} text-white p-4 h-24 flex items-center justify-between`}>
                   <div>
                     <h3 className="font-bold text-lg">{promo.title}</h3>
                     <p className="text-sm opacity-90">{promo.subtitle}</p>
@@ -165,7 +166,7 @@ const Index = () => {
                       className="w-full h-32 object-cover"
                     />
                     {restaurant.promoted && (
-                      <div className="absolute top-2 left-2 bg-gradient-primary text-white px-2 py-1 rounded text-xs font-medium shadow-sm">
+                      <div className="absolute top-2 left-2 bg-primary text-white px-2 py-1 rounded text-xs font-medium shadow-sm">
                         {restaurant.discount}
                       </div>
                     )}
@@ -223,7 +224,7 @@ const Index = () => {
             </Button>
             <Button 
               onClick={() => setIsModalOpen(false)}
-              className="bg-gradient-primary hover:opacity-90 text-white border-0"
+              className="bg-primary hover:bg-primary-600 text-white border-0"
             >
               Confirmar
             </Button>

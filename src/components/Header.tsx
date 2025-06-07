@@ -16,7 +16,7 @@ const Header = ({ title, showBack = false, showCart = true }: HeaderProps) => {
   const { totalItems } = useCart();
 
   return (
-    <header className="bg-gradient-primary text-white px-4 py-3 flex items-center justify-between">
+    <header className="bg-primary text-white px-4 py-3 flex items-center justify-between">
       <div className="flex items-center gap-3">
         {showBack && (
           <Button
